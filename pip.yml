@@ -1,6 +1,17 @@
+# source: https://concourse-ci.org/building-and-pushing-an-image.html
+resources:
+# the repo with the Dockerfile
+- name: resource-tutorial
+  type: git
+  icon: github
+  source:
+    uri: https://github.com/franco144/concourse.git
+    branch: main
+
 jobs:
 - name: build-and-push
   plan:
+  - get: concourse-examples
   - task: build
     privileged: true
     config:
@@ -9,10 +20,12 @@ jobs:
         type: registry-image
         source:
           repository: concourse/oci-build-task
+      # to ensure the artifact from the get step (where our Dockerfile is fetched) is mounted in our 'build' step
+      inputs:
+      - name: resource-tutorial
       outputs:
       - name: image
       params:
-        CONTEXT: task-inputs
         UNPACK_ROOTFS: true
       run:
         path: build
