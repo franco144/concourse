@@ -1,0 +1,26 @@
+jobs:
+- name: build-and-push
+  plan:
+  - task: build
+    privileged: true
+    config:
+      platform: linux
+      image_resource:
+        type: registry-image
+        source:
+          repository: concourse/oci-build-task
+      outputs:
+      - name: image
+      params:
+        CONTEXT: task-inputs
+        UNPACK_ROOTFS: true
+      run:
+        path: build
+  
+  - task: run-image
+    image: image # using the image built in the previous step
+    config:
+      platform: linux
+      run:
+        path: python3
+        args: ["entrypoint.py"]
