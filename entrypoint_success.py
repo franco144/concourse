@@ -9,10 +9,11 @@ cmd = 'ls -ltr'
 # Use shell to execute the command and store it in sp variable
 sp = subprocess.Popen(cmd,shell=True)
 
+print('subprocess started. now waiting for it to finish...')
 # Store the return code in rc variable
-rc=sp.wait()
+#rc=sp.wait()
 
 # Print the content of sp variable
-print(sp)
+print(f"sp content --> {sp}")
 
-sys.exit(0)
+sys.exit(sp.check_returncode())
