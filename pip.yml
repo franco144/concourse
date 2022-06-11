@@ -11,7 +11,7 @@ resources:
 jobs:
 - name: build-and-push
   plan:
-  - get: concourse-examples
+  - get: resource-tutorial
   - task: build
     privileged: true
     config:
@@ -26,6 +26,7 @@ jobs:
       outputs:
       - name: image
       params:
+        CONTEXT: resource-tutorial
         UNPACK_ROOTFS: true
       run:
         path: build
@@ -36,4 +37,4 @@ jobs:
       platform: linux
       run:
         path: python3
-        args: ["entrypoint.py"]
+        args: ["/opt/fran/entrypoint_fail.py"]
