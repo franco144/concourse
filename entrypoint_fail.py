@@ -10,7 +10,7 @@ cmd = 'tree'
 sp = subprocess.Popen(cmd,shell=True)
 
 # Store the return code in rc variable
-rc=sp.wait()
+#rc=sp.wait()
 
 # Print the content of sp variable
 print(sp)
