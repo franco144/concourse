@@ -1,7 +1,11 @@
 FROM python:3.10-slim-bullseye
 
-COPY . .
+WORKDIR /opt/fran
 
-# ENTRYPOINT ["python3", "entrypoint.py"]
+COPY ./entrypoint_fail.py ./
+
+COPY ./entrypoint_success.py ./
+
+#RUN python3 entrypoint_fail.py
 
 
